@@ -1,0 +1,14 @@
+#!/bin/bash
+# Adjust for your Windows env and your Networking.  
+# I assign a static address at the router for WSL2 (i.e. 192.168.1.7)
+# and my gateway is 192.168.1.1
+
+cmd /C "c:\Users\YOURNAME\Desktop\Bridge-Mode.bat"
+ip addr flush dev eth0
+ip addr add 192.168.1.7/24 dev eth0
+ip route add default via 192.168.1.1
+rm /etc/resolv.conf >/dev/null 2>&1
+touch /etc/resolv.conf
+echo "nameserver 192.168.1.1" >> /etc/resolv.conf
+echo "nameserver 8.8.8.8" >> /etc/resolv.conf
+echo "nameserver 4.4.4.4" >> /etc/resolv.conf
